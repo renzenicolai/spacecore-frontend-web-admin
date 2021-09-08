@@ -1,0 +1,51 @@
+,
+									{
+										type: "select",
+										name: "test1",
+										label: "Select",
+										options: groupItems,
+										ng: true
+									},
+									{
+										type: "select-buttons",
+										name: "test2",
+										label: "Select buttons",
+										options: groupItems,
+										ng: true
+									},
+									{
+										type: "switch-group",
+										name: "test3",
+										label: "Switch group",
+										options: groupItems,
+										ng: true
+									},
+									{
+										type: "static",
+										name: "test4",
+										label: "Static",
+										value: "Hello world",
+										ng: true
+									},
+									{
+										type: "range",
+										name: "test5",
+										label: "Range",
+										min: 0,
+										max: 100,
+										step: 1,
+										value: 75,
+										ng: true
+									},
+									{
+										type: "checkbox",
+										name: "test6",
+										label: "Checkbox",
+										checked: true
+									},
+									{
+										type: "file",
+										name: "test7",
+										label: "File",
+										accept: "image/*"
+									}
