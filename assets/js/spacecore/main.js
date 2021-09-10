@@ -18,15 +18,11 @@ class Spacecore {
 				ui: this.ui,
 				app: this
 			}),
-			new Mt940({
-				ui: this.ui,
-				app: this
-			}),
-			new Users({
-				ui: this.ui,
-				app: this
-			}),
 			new Files({
+				ui: this.ui,
+				app: this
+			}),
+            new Reports({
 				ui: this.ui,
 				app: this
 			}),
