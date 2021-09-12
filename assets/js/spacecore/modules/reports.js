@@ -24,12 +24,12 @@ class Reports {
 		window.location.href = "#";
         let reportoptions = "";
         let currentYear = new Date().getFullYear();
-        for (let year = 2016; year <= currentYear; year++) {
+        for (let year = 2019; year <= currentYear; year++) {
             let incomplete = (year === currentYear) ? " (thus far)" : "";
             reportoptions += "<a href='#' onclick='spacecore.currentModule.transactions("+year+");'>Full transaction log for "+year+incomplete+" [CSV]</a><br />";
         }
         reportoptions += "<br />";
-        for (let year = 2016; year <= currentYear; year++) {
+        for (let year = 2019; year <= currentYear; year++) {
             let incomplete = (year === currentYear) ? " (thus far)" : "";
             reportoptions += "<a href='#' onclick='spacecore.currentModule.summary("+year+");'>Summary for "+year+incomplete+" [CSV]</a><br />";
         }
