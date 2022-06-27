@@ -380,6 +380,7 @@ class Products {
 		
 		var elements = [
 					{ type: "text",        name: "name",        label: "Name",        value: data.name },
+					{ type: "text",        name: "identifier",  label: "identifier",  value: "" },
 					{ type: "text",        name: "description", label: "Description", value: data.description },
 					{ type: "checkbox",    name: "active",      label: "Active",      checked: Boolean(data.active) },
 					{ type: "select",      name: "brand_id",    label: "Brand",       options: brandOptions,                   id: "brandField",   convertToNumber: true, value: brandId },
@@ -391,6 +392,9 @@ class Products {
 				];
 		if (typeof data.id === "number") {
 			elements.push({ type: "hidden", name: "id", value: data.id, convertToNumber: true });
+		}
+		if(data.identifiers.length > 0){
+			elements[1].value = data.identifiers[0].value;
 		}
 		spacecore.showPage({
 			header: { title: "Product details", options: [] },
@@ -417,7 +421,7 @@ class Products {
 	}
 	
 	add() {
-		this.showEdit({name: "", description: "", active: true, picture: null, brand: null, package: null, prices: null}, "product/create", "createproduct-form", "Create product", "Create");
+		this.showEdit({name: "", identifier: "", description: "", active: true, picture: null, brand: null, package: null, prices: null}, "product/create", "createproduct-form", "Create product", "Create");
 	}
 	
 	showRemove() {
