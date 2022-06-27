@@ -359,6 +359,12 @@ class Products {
 		for (var i in this.state.locations.lastData) locationOptions.push({value: Number(this.state.locations.lastData[i].id), label: this.state.locations.lastData[i].name});
 		var locationValue = [];
 		for (var i in data.locations) locationValue.push(data.locations[i].id);
+		var identifierTypeid = null;
+		if (data.identifiers !== null && typeof data.identifiers !== "undefined") {
+			if (data.identifiers.length > 0) identifierTypeid = data.identifiers[0].type_id;
+		}
+		var identifierTypeOptions = [];
+		for (var i in this.state.identifierTypes.lastData) identifierTypeOptions.push({value: Number(this.state.identifierTypes.lastData[i].id), label: this.state.identifierTypes.lastData[i].name})
 		
 		var priceGroups = [];
 		var prices = data.prices;
@@ -380,6 +386,8 @@ class Products {
 		
 		var elements = [
 					{ type: "text",        name: "name",        label: "Name",        value: data.name },
+					{ type: "select",      name: "identifierType_id", label: "IdentifierType", options: identifierTypeOptions, id: "identifierTypeField",   convertToNumber: true, value: identifierTypeid },
+					{ type: "text",        name: "identifier",  label: "Identifier",  value: "" },
 					{ type: "text",        name: "description", label: "Description", value: data.description },
 					{ type: "checkbox",    name: "active",      label: "Active",      checked: Boolean(data.active) },
 					{ type: "select",      name: "brand_id",    label: "Brand",       options: brandOptions,                   id: "brandField",   convertToNumber: true, value: brandId },
@@ -391,6 +399,9 @@ class Products {
 				];
 		if (typeof data.id === "number") {
 			elements.push({ type: "hidden", name: "id", value: data.id, convertToNumber: true });
+		}
+		if(data.identifiers?.length > 0){
+			elements[2].value = data.identifiers[0].value;
 		}
 		spacecore.showPage({
 			header: { title: "Product details", options: [] },
@@ -417,7 +428,7 @@ class Products {
 	}
 	
 	add() {
-		this.showEdit({name: "", description: "", active: true, picture: null, brand: null, package: null, prices: null}, "product/create", "createproduct-form", "Create product", "Create");
+		this.showEdit({name: "", identifier: "", description: "", active: true, picture: null, brand: null, package: null, prices: null}, "product/create", "createproduct-form", "Create product", "Create");
 	}
 	
 	showRemove() {
