@@ -363,7 +363,7 @@ class Products {
 		if (data.identifiers !== null && typeof data.identifiers !== "undefined") {
 			if (data.identifiers.length > 0) identifierTypeid = data.identifiers[0].type_id;
 		}
-		var identifierTypeOptions = [{value: "", label: "None"}];
+		var identifierTypeOptions = [];
 		for (var i in this.state.identifierTypes.lastData) identifierTypeOptions.push({value: Number(this.state.identifierTypes.lastData[i].id), label: this.state.identifierTypes.lastData[i].name})
 		
 		var priceGroups = [];
