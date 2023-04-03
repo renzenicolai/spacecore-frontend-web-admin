@@ -58,9 +58,18 @@ class Products {
 		
 		if (!this.refreshInProgress) this.refresh();
 		
-		if ((!this.personGroupsReady) || (!this.productGroupsReady) || (!this.identifierTypesReady)) {
-			//This is needed to ensure availability of the extra data needed to print the product list
-			spacecore.showLoadingCircle("Products");
+		if (!this.personGroupsReady) {
+			spacecore.showMessage2("Loading person groups...", "Products", "Please wait");
+			setTimeout(this.show.bind(this, false, part), 200);
+			return;
+		}
+		if (!this.productGroupsReady) {
+			spacecore.showMessage2("Loading product groups...", "Products", "Please wait");
+			setTimeout(this.show.bind(this, false, part), 200);
+			return;
+		}
+		if (!this.identifierTypesReady) {
+			spacecore.showMessage2("Loading identifier types...", "Products", "Please wait");
 			setTimeout(this.show.bind(this, false, part), 200);
 			return;
 		}
@@ -374,8 +383,13 @@ class Products {
 					break;
 				}
 			}
-			console.log(group, groupPrice, groupActive);
 			priceGroups.push({id: group.id, label: group.name, value: groupPrice, enabled: groupActive});
+		}
+
+		var identifiers = [];
+		for (var i = 0; i < data.identifiers.length; i++) {
+			let identifier = data.identifiers[i];
+			identifiers.push(identifier.value);
 		}
 		
 		var elements = [
@@ -385,6 +399,7 @@ class Products {
 					{ type: "select",      name: "brand_id",    label: "Brand",       options: brandOptions,                   id: "brandField",   convertToNumber: true, value: brandId },
 					{ type: "select",      name: "package_id",  label: "Package",     options: packageOptions,                 id: "packageField", convertToNumber: true, value: packageId },
 					{ type: "selectgroup", name: "groups",      label: "Groups",      options: groupOptions,                   value: groupValue, convertToNumber: true },
+					{ type: "text",        name: "commaseparated-identifiers",  label: "Identifiers", value: identifiers.join(",") },
 					{ type: "selectgroup", name: "locations",   label: "Locations",   options: locationOptions,                value: locationValue, convertToNumber: true },
 					{ type: "file",        name: "picture",     label: "Picture",     default: "Select an image to upload...", id: "productPictureFile", value: "", picture: data.picture },
 					{ type: "pricegroup",  name: "prices",      label: "Prices",      items: priceGroups,                      convertToNumber: true, prefix: "€", placeholder: "Price", textclass:"w-8" },

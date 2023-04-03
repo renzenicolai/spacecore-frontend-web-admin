@@ -530,7 +530,9 @@ class Spacecore {
 			var value = formElements[i].value;
 			var type  = formElements[i].type;
 			var id    = formElements[i].id;
-			if ((typeof id === "string") && (id.startsWith("pricegroup-"))) {
+			if ((typeof name === "string") && name.startsWith("commaseparated-")) {
+				argument[name.split("-")[1]] = value.split(",");
+			} else if ((typeof id === "string") && (id.startsWith("pricegroup-"))) {
 				var name  = id.split("-")[1];
 				var group = Number(id.split("-")[3]);
 				if (!(name in priceGroups)) {
