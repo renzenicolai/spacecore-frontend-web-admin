@@ -47,7 +47,11 @@ class Persons {
 	}
 	
 	getCurrentPersonId() {
-		return this.state.persons.lastSelected.id;
+		if (this.state.persons.lastSelected !== null) {
+			return this.state.persons.lastSelected.id;
+		} else {
+			return null;
+		}
 	}
 	
 	_handleRefreshGroupTypes(res, err) {
@@ -455,7 +459,7 @@ class Persons {
 	
 	_removeItemFromPersonForm(typeName, typeFieldName, itemName, itemId, endpoint) {
 		if (typeof this.state.persons.lastSelected !== "object") return console.log("removeItemFromPersonForm called without a person selected!", this.state.persons.lastSelected);
-		var id = this.state.persons.lastSelected.id;
+		var id = this.getCurrentPersonId();
 
 		spacecore.showPage({
 			header: {
@@ -532,7 +536,7 @@ class Persons {
 		//Old
 		
 		if (typeof this.state.persons.lastSelected !== "object") return console.log("removeGroupFromPerson called without a person selected!", this.state.persons.lastSelected);
-		var id = this.state.persons.lastSelected.id;
+		var id = this.getCurrentPersonId();
 
 		var groupItems = [];
 		for (var i in this.state.groups.types) {
@@ -1038,7 +1042,7 @@ class Persons {
 			]
 		}, ['table_persons']);
 		
-		if (this.state.persons.lastSelected !== null) window.location.href = "#person-"+this.state.persons.lastSelected.id;
+		if (this.state.persons.lastSelected !== null) window.location.href = "#person-"+this.getCurrentPersonId();
 		spacecore.history.push(this.show.bind(this, false, "persons"));
 	}
 
@@ -1084,7 +1088,7 @@ class Persons {
 
 	showDetails(id=null) {
 		if ((id === null) && (typeof this.state.persons.lastSelected === "object")) {
-			id = this.state.persons.lastSelected.id;
+			id = this.getCurrentPersonId();
 		}
 
 		if (id === null) {
